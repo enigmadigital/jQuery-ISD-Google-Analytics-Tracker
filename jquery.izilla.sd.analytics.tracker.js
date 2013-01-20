@@ -1,8 +1,8 @@
 /*
-* Izilla Search and Display jQuery Google Analytics Tracker v1.0
+* Izilla Search and Display jQuery Google Analytics Tracker v1.1
 * Allows cross domain, file and external link tracking
 *
-* Copyright (c) 2012 Izilla Partners Pty Ltd
+* Copyright (c) 2013 Izilla Partners Pty Ltd
 *
 * http://www.izilla.com.au
 * http://www.searchanddisplay.com.au
@@ -68,28 +68,7 @@
 			return str;
 		}
 		
-		var supports = (function() {
-			var div = document.createElement('div'),
-				vendors = 'Khtml Webkit'.split(' '),
-				len = vendors.length;
-			
-			return function(prop) {
-				if (prop in div.style)
-					return true;
-				
-				prop = prop.replace(/^[a-z]/, function(val) {
-					return val.toUpperCase();
-				});
-				
-				while (len--) {
-					if (vendors[len] + prop in div.style)
-						return true;
-				}
-				return false;
-			};
-		})();
-
-		if (!supports('appearance'))
+		if ('WebkitAppearance' in document.documentElement.style)
 			delay = 0;
 		
 		if (settings.trackCrossDomain && domains.length > 0) {
