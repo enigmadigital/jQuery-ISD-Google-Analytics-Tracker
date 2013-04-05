@@ -1,5 +1,5 @@
 /*
-* Izilla Search and Display jQuery Google Analytics Tracker v1.1
+* Izilla Search and Display jQuery Google Analytics Tracker v1.2
 * Allows cross domain, file and external link tracking
 *
 * Copyright (c) 2013 Izilla Partners Pty Ltd
@@ -34,7 +34,7 @@
 			'eventCategory': 'External',
 			'delay': 200
 		}, options);
-				
+		
 		var host = window.location.host,
 			domains = settings.domains,
 			domains = [].concat(domains),
@@ -68,7 +68,7 @@
 			return str;
 		}
 		
-		if ('WebkitAppearance' in document.documentElement.style)
+		if (!'WebkitAppearance' in document.documentElement.style)
 			delay = 0;
 		
 		if (settings.trackCrossDomain && domains.length > 0) {
@@ -112,8 +112,10 @@
 		}
 		
 		$externalLinks.each(function() {
-			$(this).click(function() {
-				var thisHref = $(this).attr(href);
+			$(this).on('click', function() {
+				var $this = $(this),
+					thisHref = $this.attr(href);
+				
 				_gaq.push([trackEvent, category, clk, thisHref]);
 				
 				if (settings.trackAlternatePropertyIDs && altIDs.length > 0) {
@@ -122,7 +124,7 @@
 					}
 				}
 				
-				if ((!$(this).attr(tgt) || $(this).attr(tgt).toLowerCase() != '_blank') && delay > 0) {
+				if ((!$this.attr(tgt) || $this.attr(tgt).toLowerCase() != '_blank') && delay > 0) {
 					setTimeout(function() {
 						window.location.href = thisHref;
 					}, delay);
@@ -147,8 +149,9 @@
 		}
 		
 		$internalLinks.each(function() {
-			$(this).click(function() {
+			$(this).on('click', function() {
 				var thisHref = $(this).attr(href);
+				
 				_gaq.push([trackPageview, thisHref]);
 				
 				if (settings.trackAlternatePropertyIDs && altIDs.length > 0) {
