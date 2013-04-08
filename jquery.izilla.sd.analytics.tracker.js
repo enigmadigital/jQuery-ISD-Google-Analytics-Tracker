@@ -1,5 +1,5 @@
 /*
-* Izilla Search and Display jQuery Google Analytics Tracker v1.2
+* Izilla Search and Display jQuery Google Analytics Tracker v1.2.1
 * Allows cross domain, file and external link tracking
 *
 * Copyright (c) 2013 Izilla Partners Pty Ltd
@@ -11,6 +11,9 @@
 */
 ;(function($) {
 	$.fn.isdAnalyticsTracker = function(options) {
+		if (typeof(_gaq) === 'undefined')
+			return this;
+		
 		var settings = $.extend({
 			'trackCrossDomain': false,
 			'domains': '',
